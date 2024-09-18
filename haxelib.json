@@ -1,0 +1,19 @@
+{
+  "name": "hxWindowColorMode",
+  "url": "https://gamebanana.com/tools/17992",
+  "license": "Apache",
+  "tags": [
+    "cpp",
+    "windows",
+    "utility",
+	"util",
+	"utilities"
+  ],
+  "description": "Window Color Mode as a haxelib! Adds support for Dark / Light mode and Multiple colors.",
+  "version": "0.1.0",
+  "releasenote": "initial commit",
+  "classPath": "src/",
+  "contributors": [
+	"T-Bar"
+  ]
+}
