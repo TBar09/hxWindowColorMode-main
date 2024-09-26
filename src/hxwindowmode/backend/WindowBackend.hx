@@ -6,7 +6,7 @@ package hxwindowmode.backend;
     <lib name="dwmapi.lib" if="windows" />
 </target>
 ')
-@:headerCode('
+@:cppFileCode('
 #include <Windows.h>
 #include <cstdio>
 #include <iostream>
@@ -15,7 +15,7 @@ package hxwindowmode.backend;
 #include <winuser.h>
 ')
 #elseif linux
-@:headerCode("#include <stdio.h>")
+@:cppFileCode("#include <stdio.h>")
 #end
 class WindowBackend
 {

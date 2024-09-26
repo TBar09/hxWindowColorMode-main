@@ -10,8 +10,8 @@
 	"utilities"
   ],
   "description": "Window Color Mode as a haxelib! Adds support for Dark / Light mode and Multiple colors.",
-  "version": "0.1.0",
-  "releasenote": "initial commit",
+  "version": "0.1.5",
+  "releasenote": "Added redrawWindowHeader and fixed a bug with redrawing the window to force the new mode.",
   "classPath": "src/",
   "contributors": [
 	"T-Bar"

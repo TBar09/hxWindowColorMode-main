@@ -39,9 +39,13 @@ To use the library, import this in a class of your choice:
 	// Sets the header and/or border to a color of your choosing. (Only Windows 11 supports this).
 	WindowColorMode.setWindowBorderColor(color:Array<Int>, setHeader:Bool = true, setBorder:Bool = true);
 
-	// Resets the window. It is recommended to use this after running any of the functions above so the effect is drawn immediately.
+	// (deprecated) Resets the window. It is recommended to use this after running any of the functions above so the effect is drawn immediately.
 	// (Windows 11 doesn't need this, but it's needed on Windows 10, or else the effect won't take place until you unfocus/refocus the window).
 	WindowColorMode.resetScreenSize();
+
+	// Resets the window. It is recommended to use this after running any of the functions above so the effect is drawn immediately.
+	// (Windows 11 doesn't need this, but it's needed on Windows 10, or else the effect won't take place until you unfocus/refocus the window).
+	WindowColorMode.redrawWindowHeader();
 
 	// VARIABLES //
 	WindowColorMode.isDarkMode // (Boolean) returns true if the window is dark mode.
@@ -54,7 +58,7 @@ Here is an example of setting the window to dark mode when you press the TAB key
 	override function update(elapsed:Float) {
 		if(flixel.FlxG.keys.justPressed.TAB) {
 			WindowColorMode.setDarkMode();
-			WindowColorMode.resetScreenSize();
+			WindowColorMode.redrawWindowHeader();
 		}
 	}
 ```
@@ -63,7 +67,7 @@ Here is an example of setting the window's header to red.
 ```haxe
 	override function create() {
 		WindowColorMode.setWindowBorderColor([255, 0, 0], true, false);
-		WindowColorMode.resetScreenSize();
+		WindowColorMode.redrawWindowHeader();
 	}
 ```
 
