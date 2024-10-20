@@ -66,7 +66,7 @@ class WindowColorMode
 	 * Resets the window. It is recommended to use this after running any of the functions above so the effect is drawn immediately.
 	 * (Windows 11 doesn't need this, but it's needed on Windows 10, or else the effect won't take place until you unfocus/refocus the window).
 	 */
-	@:deprecated("use redrawWindowHeader")
+	@:deprecated("resetScreenSize is deprecated, use redrawWindowHeader instead.")
 	public static function resetScreenSize()
     {
 		if(flixel.FlxG.stage.window.maximized) {

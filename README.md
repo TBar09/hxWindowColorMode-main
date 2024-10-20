@@ -7,6 +7,9 @@ Use the following command to install hxWindowColorMode into your haxelib library
 
 `haxelib install hxWindowColorMode`
 
+If you want to get the latest (but probably unstable) releases of hxWindowColorMode, use
+`haxelib git hxWindowColorMode https://github.com/TBar09/hxWindowColorMode-main`
+
 ### For OpenFL / Haxeflixel projects
 Add this to "project.xml` in your project's source code.
 ```xml
@@ -18,11 +21,12 @@ Add this to `build.hxml`.
 -lib hxWindowColorMode
 ```
 
-## API / Usage
+## Docs / Usage
 
 To use the library, import this in a class of your choice:
 `import hxwindowmode.WindowColorMode;`
 
+Here are the functions present in the haxelib currently (as of 0.1.5):
 
 ```haxe
 	// FUNCTIONS //
@@ -30,7 +34,7 @@ To use the library, import this in a class of your choice:
 	// Sets the window to dark mode.
 	WindowColorMode.setDarkMode();
 
-	// Sets the window to light mode (aka default).
+	// Sets the window to light mode (default).
 	WindowColorMode.setLightMode();
 
 	// Shortcut to both setLightMode and setDarkMode.
@@ -74,6 +78,7 @@ Here is an example of setting the window's header to red.
 ## Extras
 
 - The original submit was a lua script for Psych Engine, go check it out here: `https://gamebanana.com/tools/17992`
+- If you want to get the latest releases of the haxelib, check out the Github page: `https://github.com/TBar09/hxWindowColorMode-main`
 - The (lua script variant) functions will be added to Ghost Utilities V3 along with a new lua module. check it out here: `https://github.com/AlsoGhostglowDev/Ghost-s-Utilities`
 - If you want to read up more on the lua script's documentation, read here: `https://github.com/AlsoGhostglowDev/Ghost-s-Trash-Bin/blob/main/docs/windowcolordocs.md`
 - Functions will be added to a bigger haxelib dedicated to C++ and window functions.
