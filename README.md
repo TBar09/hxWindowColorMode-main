@@ -43,6 +43,9 @@ Here are the functions present in the haxelib currently (as of 0.1.5):
 	// Sets the header and/or border to a color of your choosing. (Only Windows 11 supports this).
 	WindowColorMode.setWindowBorderColor(color:Array<Int>, setHeader:Bool = true, setBorder:Bool = true);
 
+	// Sets the title text to a color of your choosing. (Only Windows 11 supports this).
+	WindowColorMode.setWindowTitleColor(color:Array<Int>);
+
 	// (deprecated) Resets the window. It is recommended to use this after running any of the functions above so the effect is drawn immediately.
 	// (Windows 11 doesn't need this, but it's needed on Windows 10, or else the effect won't take place until you unfocus/refocus the window).
 	WindowColorMode.resetScreenSize();
@@ -55,6 +58,7 @@ Here are the functions present in the haxelib currently (as of 0.1.5):
 	WindowColorMode.isDarkMode // (Boolean) returns true if the window is dark mode.
 	WindowColorMode.windowHeaderColor // (Array<Int>) returns the current color of the header.
 	WindowColorMode.windowBorderColor // (Array<Int>) returns the current color of the border.
+	WindowColorMode.windowTitleColor // (Array<Int>) returns the current color of the title text.
 ```
 
 Here is an example of setting the window to dark mode when you press the TAB key.
@@ -71,7 +75,20 @@ Here is an example of setting the window's header to red.
 ```haxe
 	override function create() {
 		WindowColorMode.setWindowBorderColor([255, 0, 0], true, false);
-		WindowColorMode.redrawWindowHeader();
+	}
+```
+
+Here is an example of setting the window's header and border to green on create,
+then turns blue on destroy, while also setting the window's title text to the original
+color of the header (which was green).
+```haxe
+	override function create() {
+		WindowColorMode.setWindowBorderColor([0, 255, 0], true, true);
+	}
+	
+	override function destroy() {
+		WindowColorMode.setWindowTitleColor(WindowColorMode.windowHeaderColor);
+		WindowColorMode.setWindowBorderColor([0, 0, 255], true, true);
 	}
 ```
 

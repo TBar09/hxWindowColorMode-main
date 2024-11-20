@@ -20,14 +20,23 @@ class WindowColorMode
 	public static var windowBorderColor:Array<Int> = [];
 	
 	/**
+	 * Returns the current color of the title text.
+	 */
+	public static var windowTitleColor:Array<Int> = [];
+	
+	/**
 	 * Shortcut to both `setLightMode` and `setDarkMode`.
 	 *
 	 * @param   isDark    Do you want to set the window to dark mode?
 	 */
 	public static function setWindowColorMode(isDark:Bool = true)
     {
+		#if cpp
         WindowBackend.setWindowColorMode(isDark);
 		isDarkMode = isDark;
+		#else
+		trace('`setWindowColorMode` is not available on this platform!');
+		#end
     }
 	
 	/**
@@ -35,8 +44,12 @@ class WindowColorMode
 	 */
 	public static function setDarkMode()
     {
+		#if cpp
         WindowBackend.setWindowColorMode(true);
 		isDarkMode = true;
+		#else
+		trace('`setDarkMode` is not available on this platform!');
+		#end
     }
 	
 	/**
@@ -44,8 +57,12 @@ class WindowColorMode
 	 */
 	public static function setLightMode()
     {
+		#if cpp
         WindowBackend.setWindowColorMode(false);
 		isDarkMode = false;
+		#else
+		trace('`setLightMode` is not available on this platform!');
+		#end
     }
 
 	/**
@@ -57,9 +74,28 @@ class WindowColorMode
 	 */
 	public static function setWindowBorderColor(color:Array<Int>, setHeader:Bool = true, setBorder:Bool = true)
     {
+		#if cpp
         WindowBackend.setWindowBorderColor(((color != null) ? color : [255, 255, 255]), setHeader, setBorder);
-		if(setHeader) windowHeaderColor = color;
-		if(setBorder) windowBorderColor = color;
+		if(setHeader) windowHeaderColor = ((color != null) ? color : [255, 255, 255]);
+		if(setBorder) windowBorderColor = ((color != null) ? color : [255, 255, 255]);
+		#else
+		trace('`setWindowBorderColor` is not available on this platform!');
+		#end
+    }
+	
+	/**
+	 * Sets the window title text to a color of your choosing. (Only Windows 11 supports this).
+	 *
+	 * @param   color        The color of the window border/header. organized as [R (0 to 255), G (0 to 255), B (0 to 255)].
+	 */
+	public static function setWindowTitleColor(color:Array<Int>)
+    {
+		#if cpp
+        WindowBackend.setWindowTitleColor(((color != null) ? color : [255, 255, 255]));
+		windowTitleColor = ((color != null) ? color : [255, 255, 255]);
+		#else
+		trace('`setWindowTitleColor` is not available on this platform!');
+		#end
     }
 	
 	/**
