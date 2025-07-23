@@ -5,7 +5,7 @@
 #include <dwmapi.h>
 #endif
 
-void setWindowColorMode(bool isDarkMode)
+void nativeWindowColorMode::setWindowColorMode(bool isDarkMode)
 {
     #ifdef HX_WINDOWS
     HWND window = GetActiveWindow();
@@ -19,7 +19,7 @@ void setWindowColorMode(bool isDarkMode)
     #endif
 }
 
-void setWindowBorderColor(::Array<int> color, bool setHeader, bool setBorder)
+void nativeWindowColorMode::setWindowBorderColor(::Array<int> color, bool setHeader, bool setBorder)
 {
     #ifdef HX_WINDOWS
     HWND window = GetActiveWindow();
@@ -34,7 +34,7 @@ void setWindowBorderColor(::Array<int> color, bool setHeader, bool setBorder)
     #endif
 }
 
-void setWindowTitleColor(::Array<int> color)
+void nativeWindowColorMode::setWindowTitleColor(::Array<int> color)
 {
     #ifdef HX_WINDOWS
     HWND window = GetActiveWindow();
@@ -45,7 +45,7 @@ void setWindowTitleColor(::Array<int> color)
     #endif
 }
 
-void updateWindow()
+void nativeWindowColorMode::updateWindow()
 {
     #ifdef HX_WINDOWS
     UpdateWindow(GetActiveWindow());

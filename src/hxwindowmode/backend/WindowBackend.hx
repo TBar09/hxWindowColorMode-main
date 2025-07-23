@@ -4,15 +4,15 @@ package hxwindowmode.backend;
 @:include("windowbackend.hpp")
 @:allow(hxwindowmode.WindowColorMode)
 extern class WindowBackend {
-	@:native("setWindowColorMode")
+	@:native("nativeWindowColorMode::setWindowColorMode")
 	private static function setWindowColorMode(isDarkMode:Bool):Void;
 
-	@:native("setWindowBorderColor")
+	@:native("nativeWindowColorMode::setWindowBorderColor")
 	private static function setWindowBorderColor(color:Array<Int>, setHeader:Bool = true, setBorder:Bool = false):Void;
 
-	@:native("setWindowTitleColor")
+	@:native("nativeWindowColorMode::setWindowTitleColor")
 	private static function setWindowTitleColor(color:Array<Int>):Void;
 
-	@:native("updateWindow")
+	@:native("nativeWindowColorMode::updateWindow")
 	private static function updateWindow():Void;
 }
