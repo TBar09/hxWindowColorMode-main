@@ -100,10 +100,7 @@ class WindowColorMode {
 	 */
 	@:deprecated("resetScreenSize is deprecated, use redrawWindowHeader instead.")
 	public static inline function resetScreenSize() {
-		#if lime
-		for (i in 0...2)
-			lime.app.Application.current.window.maximized = !lime.app.Application.current.window.maximized;
-		#end
+		redrawWindowHeader();
 
 		WindowBackend.updateWindow();
 	}
