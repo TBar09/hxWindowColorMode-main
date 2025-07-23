@@ -13,6 +13,6 @@ extern class WindowBackend {
 	@:native("setWindowTitleColor")
 	private static function setWindowTitleColor(color:Array<Int>):Void;
 
-	@:native("setWindowTitleColor")
+	@:native("updateWindow")
 	private static function updateWindow():Void;
 }

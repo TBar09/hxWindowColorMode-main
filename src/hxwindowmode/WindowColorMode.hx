@@ -88,7 +88,7 @@ class WindowColorMode {
 		#if cpp
 		var colorArray:Array<Int> = color != null ? color : [255, 255, 255];
 		WindowBackend.setWindowTitleColor(colorArray);
-		windowTitleColor = (colorArray);
+		windowTitleColor = colorArray;
 		#else
 		trace('`setWindowTitleColor` is not available on this platform!');
 		#end
