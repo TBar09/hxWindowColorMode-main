@@ -10,8 +10,8 @@
 	"utilities"
   ],
   "description": "Window Color Mode as a haxelib! Adds support for Dark / Light mode and Multiple colors.",
-  "version": "0.2.0",
-  "releasenote": "Added setWindowTitleColor.",
+  "version": "0.2.1",
+  "releasenote": "General backend improvments",
   "classPath": "src/",
   "contributors": [
 	"T-Bar"

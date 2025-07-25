@@ -1,0 +1,22 @@
+<xml>
+	<pragma once="true" />
+	<set name="hxWindowColorModeFolder" value="${haxelib:hxWindowColorMode}/src/hxwindowmode/backend/src" />
+
+	<files id="__main__">
+		<compilerflag value="-I${hxWindowColorModeFolder}" />
+	</files>
+
+	<files id="haxe">
+		<compilerflag value="-I${hxWindowColorModeFolder}" />
+	</files>
+
+	<files id="hxWindowColorMode">
+		<compilerflag value="-I${hxWindowColorModeFolder}" />
+		<file name="${hxWindowColorModeFolder}/windowbackend.cpp" />
+	</files>
+
+	<target id="haxe">
+		<files id="hxWindowColorMode" />
+        <lib name="dwmapi.lib" if="windows" />
+	</target>
+</xml>
