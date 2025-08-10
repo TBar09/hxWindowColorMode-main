@@ -4,16 +4,19 @@
   "license": "Apache",
   "tags": [
     "cpp",
+	"hxcpp",
+	"externs",
     "windows",
     "utility",
 	"util",
 	"utilities"
   ],
-  "description": "Window Color Mode as a haxelib! Adds support for Dark / Light mode and Multiple colors.",
+  "description": "Adds support for changing the Window header to Dark mode, Light mode, and Multiple colors.",
   "version": "0.2.1",
-  "releasenote": "General backend improvments",
+  "releasenote": "Added setWindowCornerType along with general backend improvments & compiler fixes",
   "classPath": "src/",
   "contributors": [
-	"T-Bar"
+	"T-Bar", 
+	"Vortex"
   ]
 }
