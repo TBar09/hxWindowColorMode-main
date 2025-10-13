@@ -141,8 +141,10 @@ class WindowColorMode {
 	@:deprecated("resetScreenSize is deprecated, use redrawWindowHeader instead.")
 	public static inline function resetScreenSize() {
 		redrawWindowHeader();
-
+		#if(cpp && windows)
 		WindowBackend.updateWindow();
+		trace('`resetScreenSize` is not available on this platform!');
+		#end
 	}
 
 	/**
