@@ -162,7 +162,11 @@ class WindowColorMode {
 		#end
 	}
 
-	public static inline function isLightTheme() {
+	public static inline function isDarkTheme():Bool {
+		return !isLightTheme();
+	}
+
+	public static inline function isLightTheme():Bool {
 		#if(!cpp || !windows)
 		trace('`isLightTheme` is not available on this platform!');
 		#end
