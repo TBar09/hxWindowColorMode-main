@@ -33,29 +33,35 @@ Here are the functions present in the haxelib currently (as of 0.2.1):
 	// FUNCTIONS //
 
 	// Sets the window to dark mode. (returns true if it was successful)
-	WindowColorMode.setDarkMode();
+	WindowColorMode.setDarkMode():Bool;
 
 	// Sets the window to light mode (default). (returns true if it was successful)
-	WindowColorMode.setLightMode();
+	WindowColorMode.setLightMode():Bool;
 
 	// Shortcut to both setLightMode and setDarkMode. (returns true if it was successful)
-	WindowColorMode.setWindowColorMode(isDark:Bool = true);
+	WindowColorMode.setWindowColorMode(isDark:Bool = true):Bool;
 	
 	// Sets the header and/or border to a color of your choosing. (Only Windows 11 supports this).
-	WindowColorMode.setWindowBorderColor(color:Array<Int>, setHeader:Bool = true, setBorder:Bool = true);
+	WindowColorMode.setWindowBorderColor(color:Array<Int>, setHeader:Bool = true, setBorder:Bool = true):Void;
 
 	// Sets the title text to a color of your choosing. (Only Windows 11 supports this).
-	WindowColorMode.setWindowTitleColor(color:Array<Int>);
+	WindowColorMode.setWindowTitleColor(color:Array<Int>):Void;
 
 	// Sets the window's corners, usually rounded or square shaped. (Only Windows 11 supports this).
-	WindowColorMode.setWindowCornerType(cornerType:Int = 0);
+	WindowColorMode.setWindowCornerType(cornerType:Int = 0):Void;
 
 	// (deprecated, use redrawWindowHeader) Resets the window.
-	WindowColorMode.resetScreenSize();
+	WindowColorMode.resetScreenSize():Void;
 
 	// Resets the window. It is recommended to use this after running any of the functions above so the effect is drawn immediately.
 	// (Windows 11 doesn't need this, but it's needed on Windows 10, or else the effect won't take place until you unfocus/refocus the window).
-	WindowColorMode.redrawWindowHeader();
+	WindowColorMode.redrawWindowHeader():Void;
+
+	// Returns true if the active window is in dark mode.
+	WindowColorMode.isDarkTheme():Bool;
+
+	// Returns true if the active window is in light mode.
+	WindowColorMode.isLightTheme():Bool;
 
 	// VARIABLES //
 	WindowColorMode.isDarkMode // (Boolean) returns true if the window is dark mode.
