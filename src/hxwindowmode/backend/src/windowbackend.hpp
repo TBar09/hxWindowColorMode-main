@@ -9,4 +9,5 @@ namespace nativeWindowColorMode
 	void setWindowTitleColor(::Array<int> color);
 	void setWindowCornerType(int cornerType);
 	void updateWindow();
+	bool isLightTheme();
 }

@@ -36,7 +36,9 @@ class WindowColorMode {
 	 * Useful for checking if you need to force redraw the window header.
 	 */
 	public static var isWindows10(get, never):Bool;
-	public static function get_isWindows10():Bool {
+
+	@:noCompletion
+	private static inline function get_isWindows10():Bool {
 		#if lime
 		//could use some C++ code but this works too
 		return (lime.system.System.platformLabel.toLowerCase().indexOf("windows 10") != -1);
@@ -153,8 +155,18 @@ class WindowColorMode {
 	 */
 	public static inline function redrawWindowHeader() {
 		#if lime
+		#if !desktop
+		trace('`redrawWindowHeader` is not available on this platform!');
+		#end
 		for (i in 0...2) lime.app.Application.current.window.borderless = !lime.app.Application.current.window.borderless;
 		#end
+	}
+
+	public static inline function isLightTheme() {
+		#if(!cpp || !windows)
+		trace('`isLightTheme` is not available on this platform!');
+		#end
+		return WindowBackend.isLightTheme();
 	}
 }
 

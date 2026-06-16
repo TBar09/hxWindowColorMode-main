@@ -18,4 +18,7 @@ extern class WindowBackend {
 
 	@:native("nativeWindowColorMode::updateWindow")
 	private static function updateWindow():Void;
+
+	@:native("nativeWindowColorMode::isLightTheme")
+	private static function isLightTheme():Bool;
 }

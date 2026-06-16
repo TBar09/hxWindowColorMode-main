@@ -18,5 +18,6 @@
 	<target id="haxe">
 		<files id="hxWindowColorMode" />
         <lib name="dwmapi.lib" if="windows" />
+		<lib name="Advapi32.lib" if="windows" />
 	</target>
 </xml>
