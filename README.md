@@ -1,4 +1,5 @@
 [![Haxelib Version](https://img.shields.io/badge/haxelib-v0.2.2-blue)](https://lib.haxe.org/p/hxWindowColorMode/) [![Github repository](https://img.shields.io/badge/github-repo-blue?logo=github)](https://github.com/TBar09/hxWindowColorMode-main)
+
 hxWindowColorMode
 ====
 
@@ -29,7 +30,7 @@ Add this to "project.xml` in your project's source code.
 
 Add this to `build.hxml`.
 ```hxml
--library hxWindowColorMode
+-lib hxWindowColorMode
 ```
 
 ## Docs / Usage
