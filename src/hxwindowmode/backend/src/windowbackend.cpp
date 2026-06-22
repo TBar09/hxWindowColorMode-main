@@ -10,7 +10,8 @@
 
 bool nativeWindowColorMode::setWindowColorMode(bool isDarkMode)
 {
-#ifdef HX_WINDOWS
+	#ifdef HX_WINDOWS
+
 	HWND window = GetActiveWindow();
 	int isDark = (isDarkMode ? 1 : 0);
 	bool hasChanged = (DwmSetWindowAttribute(window, 19, &isDark, sizeof(isDark)) == S_OK);
@@ -22,14 +23,14 @@ bool nativeWindowColorMode::setWindowColorMode(bool isDarkMode)
 	UpdateWindow(window);
 
 	return hasChanged;
-#else
+	#else
 	return false;
-#endif
+	#endif
 }
 
 void nativeWindowColorMode::setWindowBorderColor(::Array<int> color, bool setHeader, bool setBorder)
 {
-#ifdef HX_WINDOWS
+	#ifdef HX_WINDOWS
 	HWND window = GetActiveWindow();
 	auto finalColor = RGB(color[0], color[1], color[2]);
 
@@ -39,35 +40,61 @@ void nativeWindowColorMode::setWindowBorderColor(::Array<int> color, bool setHea
 		DwmSetWindowAttribute(window, 34, &finalColor, sizeof(COLORREF));
 
 	UpdateWindow(window);
-#endif
+	#endif
 }
 
 void nativeWindowColorMode::setWindowTitleColor(::Array<int> color)
 {
-#ifdef HX_WINDOWS
+	#ifdef HX_WINDOWS
 	HWND window = GetActiveWindow();
 	auto finalColor = RGB(color[0], color[1], color[2]);
 
 	DwmSetWindowAttribute(window, 36, &finalColor, sizeof(COLORREF));
 	UpdateWindow(window);
-#endif
+	#endif
 }
 
 void nativeWindowColorMode::setWindowCornerType(int cornerType)
 {
-#ifdef HX_WINDOWS
+	#ifdef HX_WINDOWS
 	HWND window = GetActiveWindow();
 
 	DwmSetWindowAttribute(window, 33, &cornerType, sizeof(cornerType));
 	UpdateWindow(window);
-#endif
+	#endif
 }
 
 void nativeWindowColorMode::updateWindow()
 {
-#ifdef HX_WINDOWS
+	#ifdef HX_WINDOWS
 	UpdateWindow(GetActiveWindow());
-#endif
+	#endif
+}
+
+/**
+ * @see https://stackoverflow.com/questions/32115255/c-how-to-detect-windows-10
+ */
+double nativeWindowColorMode::getMajorWindowsVersion()
+{
+	#ifdef HX_WINDOWS
+	double ret = -1.0;
+	NTSTATUS(WINAPI *RtlGetVersion)(LPOSVERSIONINFOEXW);
+	OSVERSIONINFOEXW osInfo;
+
+	*(FARPROC*)&RtlGetVersion = GetProcAddress(GetModuleHandleA("ntdll"), "RtlGetVersion");
+
+	if(NULL == RtlGetVersion)
+		return ret;
+
+	osInfo.dwOSVersionInfoSize = sizeof(osInfo);
+	if(RtlGetVersion(&osInfo) == 0x00000000) //STATUS_SUCCESS
+	{
+		ret = (double)osInfo.dwMajorVersion;
+	}
+	return ret;
+	#else
+	return -1.0;
+	#endif
 }
 
 /**
@@ -75,7 +102,8 @@ void nativeWindowColorMode::updateWindow()
  */
 bool nativeWindowColorMode::isLightTheme()
 {
-#ifdef HX_WINDOWS
+	#ifdef HX_WINDOWS
+
 	// The value is expected to be a REG_DWORD, which is a signed 32-bit little-endian
 	auto buffer = std::vector<char>(4);
 	auto cbData = static_cast<DWORD>(buffer.size() * sizeof(char));
@@ -100,7 +128,7 @@ bool nativeWindowColorMode::isLightTheme()
 				 buffer[0]);
 
 	return i == 1;
-#else
+	#else
 	return false;
-#endif
+	#endif
 }

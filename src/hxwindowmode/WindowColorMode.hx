@@ -5,31 +5,42 @@ import hxwindowmode.backend.WindowBackend;
 #end
 
 class WindowColorMode {
-
 	/**
 	 * If the window is currently dark mode or not.
 	 */
 	public static var isDarkMode(default, null):Bool = false;
 
 	/**
-	 * Returns the current color of the header.
+	 * The current color of the header.
 	 */
 	public static var windowHeaderColor(default, null):Array<Int> = [];
 
 	/**
-	 * Returns the current color of the border.
+	 * The current color of the border.
 	 */
 	public static var windowBorderColor(default, null):Array<Int> = [];
 
 	/**
-	 * Returns the current color of the title text.
+	 * The current color of the title text.
 	 */
 	public static var windowTitleColor(default, null):Array<Int> = [];
 
 	/**
-	 * Returns the window corner type.
+	 * The current window corner type applied on the window.
 	 */
-	public static var windowCornerType(default, null):Int = 0;
+	public static var windowCornerType(default, null):WindowCornerType = DEFAULT;
+
+	/**
+	 * A special effect for `setWindowBorderColor` that will remove the drawing of the
+	 * window border, making it possible to have a rounded window with no border.
+	 */
+	public static final WINDOW_COLOR_NONE:Array<Int> = [255, 255, 254];
+
+	/**
+	 * The effect for `setWindowBorderColor` and `setWindowTitleColor` that
+	 * reset the window's colors to the system defaults.
+	 */
+	public static final WINDOW_COLOR_DEFAULT:Array<Int> = [255, 255, 255];
 
 	/**
 	 * Returns if the current running OS is windows 10.
@@ -39,60 +50,56 @@ class WindowColorMode {
 
 	@:noCompletion
 	private static inline function get_isWindows10():Bool {
-		#if lime
-		//could use some C++ code but this works too
-		return (lime.system.System.platformLabel.toLowerCase().indexOf("windows 10") != -1);
+		#if(cpp && windows)
+		return WindowBackend.getMajorWindowsVersion() < 11; //If current windows version is under Win 11
 		#else
 		return true;
 		#end
 	}
 
 	/**
-	 * Shortcut to both `setLightMode` and `setDarkMode`.
+	 * Sets the active window to dark / light mode.
+	 * Use `setLightMode` and `setDarkMode` as shortcuts to this.
 	 *
-	 * @param   isDark    Do you want to set the window to dark mode?
+	 * @param   isDark		Whether to set the window to dark mode.
+	 *
+	 * @return Whether the method was successful.
 	 */
 	public static inline function setWindowColorMode(isDark:Bool = true):Bool {
 		#if(cpp && windows)
 		var isChanged:Bool = WindowBackend.setWindowColorMode(isDark);
 		if(isChanged) isDarkMode = isDark;
+
 		return isChanged;
 		#else
-		trace('`setWindowColorMode` is not available on this platform!');
 		return false;
 		#end
 	}
 
 	/**
 	 * Sets the window to dark mode.
+	 *
+	 * @return Whether the method was successful.
 	 */
 	public static inline function setDarkMode():Bool {
-		#if(cpp && windows)
-		return WindowBackend.setWindowColorMode(true);
-		#else
-		trace('`setDarkMode` is not available on this platform!');
-		return false;
-		#end
+		return setWindowColorMode(true);
 	}
 
 	/**
-	 * Sets the window to light mode (aka default).
+	 * Sets the window to light mode.
+	 *
+	 * @return Whether the method was successful.
 	 */
 	public static inline function setLightMode():Bool {
-		#if(cpp && windows)
-		return WindowBackend.setWindowColorMode(false);
-		#else
-		trace('`setLightMode` is not available on this platform!');
-		return false;
-		#end
+		return setWindowColorMode(false);
 	}
 
 	/**
-	 * Sets the header and/or border to a color of your choosing. (Only Windows 11 supports this).
+	 * Sets the header and/or border to a color of your choosing (Only Windows 11 supports this).
 	 *
-	 * @param   color        The color of the window border/header. organized as [R (0 to 255), G (0 to 255), B (0 to 255)].
-	 * @param   setHeader    Do you want to set the header to the specified color?
-	 * @param   setBorder    Do you want to set the border to the specified color?
+	 * @param   color			The color of the window border/header. organized as [R (0 to 255), G (0 to 255), B (0 to 255)].
+	 * @param   setHeader		Whether to set the header to the specified color.
+	 * @param   setBorder		Whether to set the border to the specified color.
 	 */
 	public static inline function setWindowBorderColor(color:Array<Int>, setHeader:Bool = true, setBorder:Bool = true) {
 		#if(cpp && windows)
@@ -101,80 +108,85 @@ class WindowColorMode {
 
 		if(setHeader) windowHeaderColor = colorArray;
 		if(setBorder) windowBorderColor = colorArray;
-		#else
-		trace('`setWindowBorderColor` is not available on this platform!');
 		#end
 	}
 
 	/**
-	 * Sets the window title text to a color of your choosing. (Only Windows 11 supports this).
+	 * Sets the window title text to a color of your choosing (Only Windows 11 supports this).
 	 *
-	 * @param   color        The color of the window border/header. organized as [R (0 to 255), G (0 to 255), B (0 to 255)].
+	 * @param   color		The color of the window border/header. organized as [R (0 to 255), G (0 to 255), B (0 to 255)].
 	 */
 	public static inline function setWindowTitleColor(color:Array<Int>) {
 		#if(cpp && windows)
 		var colorArray:Array<Int> = color != null ? color : [255, 255, 255];
 		WindowBackend.setWindowTitleColor(colorArray);
+
 		windowTitleColor = colorArray;
-		#else
-		trace('`setWindowTitleColor` is not available on this platform!');
 		#end
 	}
 
 	/**
-	 * Sets the window's corners, usually rounded or square shaped. (Only Windows 11 supports this).
-	 * Check out the `WindowCornerType` enum abstract for more info.
+	 * Sets the window's corners, usually rounded or square shaped (Only Windows 11 supports this).
+	 * Refer to the `WindowCornerType` enum abstract for available fields.
 	 *
-	 * @param   cornerType	 The corner type to use.
+	 * @param   cornerType		The corner type to use.
 	 */
-	public static inline function setWindowCornerType(?cornerType:Int = 0) {
+	public static inline function setWindowCornerType(?cornerType:WindowCornerType = DEFAULT) {
 		#if(cpp && windows)
 		WindowBackend.setWindowCornerType(cornerType);
 		windowCornerType = cornerType;
-		#else
-		trace('`setWindowCornerType` is not available on this platform!');
 		#end
 	}
 
 	/**
-	 * Resets the window. It is recommended to use this after running any of the functions above so the effect is drawn immediately.
-	 * (Windows 11 doesn't need this, but it's needed on Windows 10, or else the effect won't take place until you unfocus/refocus the window).
+	 * Resets the window. This is deprecated by `redrawWindowHeader`.
 	 */
 	@:deprecated("resetScreenSize is deprecated, use redrawWindowHeader instead.")
 	public static inline function resetScreenSize() {
-		redrawWindowHeader();
 		#if(cpp && windows)
+		redrawWindowHeader();
 		WindowBackend.updateWindow();
-		trace('`resetScreenSize` is not available on this platform!');
 		#end
 	}
 
 	/**
-	 * Resets the window. It is recommended to use this after running any of the functions above so the effect is drawn immediately.
-	 * (Windows 11 doesn't need this, but it's needed on Windows 10, or else the effect won't take place until you unfocus/refocus the window).
+	 * Redraws the window header. It is recommended to use this after running any of the functions above so the effect is drawn immediately.
+	 * (Windows 11 doesn't need this, but it's needed on Windows 10, or else the effect won't appear until you refocus the window).
 	 */
 	public static inline function redrawWindowHeader() {
-		#if lime
-		#if !desktop
-		trace('`redrawWindowHeader` is not available on this platform!');
-		#end
-		for (i in 0...2) lime.app.Application.current.window.borderless = !lime.app.Application.current.window.borderless;
+		#if(desktop && lime)
+		lime.app.Application.current.window.borderless = !lime.app.Application.current.window.borderless;
+		lime.app.Application.current.window.borderless = !lime.app.Application.current.window.borderless;
 		#end
 	}
 
+	/**
+	 * Checks whether the os is using light mode.
+	 * NOTE: This gets the system's current settings for the theme,
+	 * not the current window's theme. Use `isDarkMode` for that.
+	 *
+	 * @return Whether the os is in light mode.
+	 */
+	public static inline function isLightTheme():Bool {
+		#if(cpp && windows)
+		return WindowBackend.isLightTheme();
+		#else
+		return false;
+		#end
+	}
+
+	/**
+	 * Checks whether the os is using dark mode.
+	 * Shortcut to `!isLightTheme()`.
+	 *
+	 * @return Whether the os is in dark mode.
+	 */
 	public static inline function isDarkTheme():Bool {
 		return !isLightTheme();
 	}
-
-	public static inline function isLightTheme():Bool {
-		#if(!cpp || !windows)
-		trace('`isLightTheme` is not available on this platform!');
-		#end
-		return WindowBackend.isLightTheme();
-	}
 }
 
-enum abstract WindowCornerType(Int) {
+enum abstract WindowCornerType(Int) from Int to Int {
 	var DEFAULT = 0;	//System defaults
 	var DONOTROUND = 1; //No round corners
 	var ROUND = 2;		//Round the corners

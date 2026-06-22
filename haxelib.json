@@ -1,22 +1,24 @@
 {
-  "name": "hxWindowColorMode",
-  "url": "https://gamebanana.com/tools/17992",
-  "license": "Apache",
-  "tags": [
-    "cpp",
-	"hxcpp",
-	"externs",
-    "windows",
-    "utility",
-	"util",
-	"utilities"
-  ],
-  "description": "Adds support for changing the Window header to Dark mode, Light mode, and Multiple colors.",
-  "version": "0.2.1",
-  "releasenote": "Added setWindowCornerType along with general backend improvments & compiler fixes",
-  "classPath": "src/",
-  "contributors": [
-	"T-Bar", 
-	"Vortex"
-  ]
+	"name": "hxWindowColorMode",
+	"url": "https://github.com/TBar09/hxWindowColorMode-main",
+	"license": "Apache",
+	"tags": [
+		"cpp",
+		"hxcpp",
+		"native",
+		"extern",
+		"externs",
+		"windows",
+		"utility",
+		"util",
+		"utilities"
+	],
+	"description": "Adds support for changing the Window header to Dark mode, Light mode, and Multiple colors.",
+	"version": "0.2.2",
+	"releasenote": "Code overhaul, Added `isLightTheme` / `isDarkTheme`, & `WindowCornerType` can be used in `setWindowCornerType`.",
+	"classPath": "src/",
+	"contributors": [
+		"T-Bar", 
+		"Vortex"
+	]
 }
